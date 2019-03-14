@@ -1,0 +1,47 @@
+{
+  "name": "automium-sdk",
+  "version": "1.0.0",
+  "description": "Automium SDK",
+  "main": "dist/index.js",
+  "author": "Automium Team",
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/node": "^4.6.3",
+    "body-parser": "^1.18.3",
+    "got": "^9.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/polyfill": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.14.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.1.0",
+    "jest-cli": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
+  },
+  "scripts": {
+    "validate": "yarn prettier:check && yarn lint:eslint",
+    "prettier:check": "yarn prettier --debug-check $npm_package_config_prettier_target",
+    "prettier:write": "yarn prettier --write $npm_package_config_prettier_target",
+    "lint:eslint": "yarn eslint $npm_package_config_prettier_target",
+    "test": "jest",
+    "clean": "rimraf dist/*",
+    "build": "yarn clean && babel src --out-dir dist --ignore tests"
+  },
+  "config": {
+    "prettier_target": "src/**/*.{js,md,json}"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./dist"
+    ]
+  }
+}
