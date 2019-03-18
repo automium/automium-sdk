@@ -2,8 +2,9 @@ import { Infra } from "./infra/infra";
 import { invokeLogin } from "./auth/login";
 
 export class Client {
-  constructor(url) {
-    this.gatewayURL = url;
+  constructor(options) {
+    this.gatewayURL = options.baseUrl;
+    this.token = options.auth;
   }
 
   login = async (username, password) => {

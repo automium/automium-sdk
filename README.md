@@ -1,10 +1,15 @@
-# Automium-SDK
+# Automium SDK
 
 ## Usage
 
 ```
 const SDK = require('automium-sdk')
-const client = new SDK.Client("https://AUTOMIUM_ENDPOINT")
+const client = new SDK.Client({
+    baseUrl: "https://AUTOMIUM_ENDPOINT",
+    auth: "token"
+})
+
+Instead of passing a valid token, you can use the login function:
 
 client.login("username","password").then(res => {
     console.info("is user logged in:",res)
