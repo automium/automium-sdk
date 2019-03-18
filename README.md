@@ -18,10 +18,27 @@ client.login("username","password").then(res => {
 const infra = client.infra("default")
 infra.specs(SDK.Environment.DRAFT).then(data => {
     data.forEach(svc => {
+        console.info("service:", svc.metadata)
+        console.info("count:", svc.spec.replicas)
         ...
     })
 })
 ...
+infra.status().then(data => {
+    data.items.forEach(node => {
+        console.info("hostname:",node.spec.hostname)
+        console.info("address:",node.status.nodeProperties.address)
+        console.info("hc:", node.status.nodeHealthChecks)
+        ...
+    })
+})
+...
+infra.services().then(data => {
+    data.forEach(svc => {
+        console.log(svc.data.metadata.name)
+        ...
+    })
+})
 ```
 
 ## Concepts

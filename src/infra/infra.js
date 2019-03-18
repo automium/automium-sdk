@@ -20,7 +20,7 @@ export class Infra {
     const { status, result } = await invokeServices(this.config);
     if (status) {
       result.items.forEach(item => {
-        let svc = new Service(this.gatewayURL, this.token, this.infraID, item);
+        let svc = new Service(this.config, item);
         if (item.spec.replicas > 0) {
           svc.status = "live";
           services.push(svc);

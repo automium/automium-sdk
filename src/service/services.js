@@ -7,7 +7,7 @@ export const invokeServices = async config => {
     const input = {};
     const options = invokeOptions(input, config.token);
     const funcResponse = await got(
-      `${config.gateway}/${config.infraID}/getservices`,
+      `${config.gateway}/${config.infraID}/infraservices`,
       options
     );
     return { status: true, result: funcResponse.body };
