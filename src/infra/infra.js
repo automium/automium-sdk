@@ -65,8 +65,8 @@ export class Infra {
   };
 
   getService = async (id, env) => {
-    let specs = await this.Specs(env);
-    let service = specs.result.filter(svc => svc.metadata.name == id);
+    let specs = await this.specs(env);
+    let service = specs.filter(svc => svc.metadata.name == id);
     if (service.length == 1) {
       //TODO: check the real status in Services()
       return new Service(this.config, service[0]);
