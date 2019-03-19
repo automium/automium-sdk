@@ -35,7 +35,7 @@ infra.status().then(data => {
 ...
 infra.services().then(data => {
     data.forEach(svc => {
-        console.log(svc.data.metadata.name)
+        console.info(svc.data.metadata.name)
         ...
     })
 })

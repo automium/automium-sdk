@@ -41,7 +41,7 @@ export class Service {
   };
 
   save = async () => {
-    const { status, result } = await invokeSave(this.config, this.data);
+    const { status } = await invokeSave(this.config, this.data);
     if (status) {
       this.status = "draft"; //newdraft??
       this.dirty = false;
@@ -55,7 +55,7 @@ export class Service {
       console.warn("The service is not saved");
       return false;
     }
-    let { status, result } = await invokeDeploy(this.config, this.data);
+    let { status } = await invokeDeploy(this.config, this.data);
     if (status) {
       if (this.status == "deleted") {
         let { status } = await invokeDelete(
@@ -85,7 +85,7 @@ export class Service {
     }
     //start the deletion workflow: force replicas to 0
     this.data.spec.replicas = 0;
-    const { status, result } = await invokeSave(this.config, this.data);
+    const { status } = await invokeSave(this.config, this.data);
     if (status) {
       this.status = "deleted";
     }

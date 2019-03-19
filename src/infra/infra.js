@@ -54,6 +54,7 @@ export class Infra {
     }
   };
 
+  /* eslint no-unused-vars: ["error", { "args": "none" }] */
   addService = (id, env) => {
     //TODO: add env
     let service = this.catalog.filter(svc => svc.metadata.labels.app == id);
