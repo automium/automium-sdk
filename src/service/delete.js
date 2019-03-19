@@ -9,7 +9,7 @@ export const invokeDelete = async (config, name) => {
     };
     const options = invokeOptions(input, config.token);
     const funcResponse = await got(
-      `${config.gateway}/${config.infraID}/deleteservicespec`,
+      `${config.gateway}/${config.infraID}/deletespec`,
       options
     );
     return { status: true, result: funcResponse.body };

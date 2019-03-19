@@ -41,7 +41,7 @@ export const kubernetes = {
   kind: "Service",
   metadata: {
     labels: { app: "kubernetes" },
-    name: "mykubernetescluster"
+    name: "mycluster"
   },
   spec: {
     replicas: 1,

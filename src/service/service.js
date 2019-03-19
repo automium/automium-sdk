@@ -41,7 +41,6 @@ export class Service {
   };
 
   save = async () => {
-    //TODO: add token
     const { status, result } = await invokeSave(this.config, this.data);
     if (status) {
       this.status = "draft"; //newdraft??
@@ -56,14 +55,11 @@ export class Service {
       console.warn("The service is not saved");
       return false;
     }
-    //TODO: add token
     let { status, result } = await invokeDeploy(this.config, this.data);
     if (status) {
       if (this.status == "deleted") {
-        //TODO: add token
         let { status } = await invokeDelete(
-          this.gatewayURL,
-          this.infraID,
+          this.config,
           this.data.metadata.name
         );
         if (status) {
@@ -78,9 +74,17 @@ export class Service {
   };
 
   delete = async () => {
-    //force replicas to 0
+    //direct deletion of the spec if the service has not been deployed
+    if (this.status === "new") {
+      let { status } = await invokeDelete(this.config, this.data.metadata.name);
+      if (status) {
+        this.status = "deleted";
+        this.deletedAt = new Date().toISOString();
+      }
+      return status; //what to return?
+    }
+    //start the deletion workflow: force replicas to 0
     this.data.spec.replicas = 0;
-    //TODO: add token
     const { status, result } = await invokeSave(this.config, this.data);
     if (status) {
       this.status = "deleted";

@@ -10,7 +10,7 @@ export const invokeSave = async (config, svc) => {
     };
     const options = invokeOptions(input, config.token);
     const funcResponse = await got(
-      `${config.gateway}/${config.infraID}/saveservicespec`,
+      `${config.gateway}/${config.infraID}/savespec`,
       options
     );
     return { status: true, result: funcResponse.body };
