@@ -1,6 +1,6 @@
 {
   "name": "automium-sdk",
-  "version": "1.0.2",
+  "version": "0.0.0-development",
   "description": "Automium SDK",
   "main": "dist/index.js",
   "author": "Automium Team",
@@ -9,7 +9,9 @@
     "url": "https://github.com/automium/automium-sdk",
     "type": "git"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@sentry/node": "^4.6.3",
     "body-parser": "^1.18.3",
@@ -28,7 +30,8 @@
     "jest": "^24.1.0",
     "jest-cli": "^24.1.0",
     "nodemon": "^1.18.10",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "semantic-release": "^15.13.3"
   },
   "scripts": {
     "validate": "yarn prettier:check && yarn lint:eslint",
@@ -37,7 +40,8 @@
     "lint:eslint": "yarn eslint $npm_package_config_prettier_target",
     "test": "jest",
     "clean": "rimraf dist/*",
-    "build": "yarn clean && babel src --out-dir dist --ignore tests"
+    "build": "yarn clean && babel src --out-dir dist --ignore tests",
+    "semantic-release": "semantic-release"
   },
   "config": {
     "prettier_target": "src/**/*.{js,md,json}"
