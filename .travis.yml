@@ -13,12 +13,10 @@ branches:
 install:
   - yarn install
 
-script:
-  - yarn test
-
 jobs:
   include:
     - stage: release
       node_js: lts/*
       script:
+        - yarn test
         - npm run semantic-release
