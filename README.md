@@ -3,7 +3,7 @@
 ## Usage
 
 ```
-const SDK = require('automium-sdk')
+const SDK = require('automium')
 const client = new SDK.Client({
     baseUrl: "https://AUTOMIUM_ENDPOINT",
     auth: "token"
