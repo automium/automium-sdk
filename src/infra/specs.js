@@ -7,7 +7,7 @@ export const invokeSpecs = async (config, branch) => {
     const input = {
       branch: branch
     };
-    const options = invokeOptions(input, config.token);
+    const options = invokeOptions(input, config.token, config.timeout);
     const funcResponse = await got(
       `${config.gateway}/${config.infraID}/infraspecs`,
       options

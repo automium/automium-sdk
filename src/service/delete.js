@@ -7,7 +7,7 @@ export const invokeDelete = async (config, name) => {
     const input = {
       name: name
     };
-    const options = invokeOptions(input, config.token);
+    const options = invokeOptions(input, config.token, config.timeout);
     const funcResponse = await got(
       `${config.gateway}/${config.infraID}/deletespec`,
       options

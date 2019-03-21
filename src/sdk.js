@@ -5,6 +5,7 @@ export class Client {
   constructor(options) {
     this.gatewayURL = options.baseUrl;
     this.token = options.auth;
+    this.timeout = options.timeout || 10000;
   }
 
   login = async (username, password) => {
@@ -25,6 +26,6 @@ export class Client {
     if (infraid == undefined) {
       throw Error("invalid infraID");
     }
-    return new Infra(this.gatewayURL, this.token, infraid);
+    return new Infra(this.gatewayURL, this.token, this.timeout, infraid);
   }
 }

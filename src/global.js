@@ -3,12 +3,12 @@ export const environments = {
   LIVE: "prod"
 };
 
-export const invokeOptions = (input, token) => {
+export const invokeOptions = (input, token, timeout) => {
   return {
     method: "POST",
     json: true,
     encoding: "utf8",
-    timeout: 10000,
+    timeout: timeout,
     body: input,
     headers: {
       authorization: `Bearer ${token}`

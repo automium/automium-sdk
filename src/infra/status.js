@@ -5,7 +5,7 @@ import * as Sentry from "@sentry/node";
 export const invokeStatus = async config => {
   try {
     const input = {};
-    const options = invokeOptions(input, config.token);
+    const options = invokeOptions(input, config.token, config.timeout);
     const funcResponse = await got(
       `${config.gateway}/${config.infraID}/infrastatus`,
       options

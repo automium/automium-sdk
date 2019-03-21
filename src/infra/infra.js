@@ -6,11 +6,12 @@ import { invokeServices } from "../service/services";
 import { invokeCatalog } from "../service/catalog";
 
 export class Infra {
-  constructor(gwURL, token, infraid) {
+  constructor(gwURL, token, timeout, infraid) {
     this.config = {
       gateway: gwURL,
       infraID: infraid,
-      token: token
+      token: token,
+      timeout: timeout
     };
     this.catalog = invokeCatalog();
   }

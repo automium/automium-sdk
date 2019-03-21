@@ -10,7 +10,7 @@ export const invokeDeploy = async (config, svc) => {
     const input = {
       service: svc
     };
-    const options = invokeOptions(input, config.token);
+    const options = invokeOptions(input, config.token, config.timeout);
     const funcResponse = await got(
       `${config.gateway}/${config.infraID}/applyservice`,
       options
