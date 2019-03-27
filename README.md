@@ -1,6 +1,7 @@
 # Automium SDK
 
 [![Build Status](https://travis-ci.org/automium/automium-sdk.svg?branch=master)](https://travis-ci.org/automium/automium-sdk)
+[![npm version](https://badge.fury.io/js/automium.svg)](https://badge.fury.io/js/automium)
 
 ## Usage
 
