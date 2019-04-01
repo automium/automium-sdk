@@ -1,8 +1,17 @@
+// @flow
 import got from "got";
 import { invokeOptions } from "../global";
 import * as Sentry from "@sentry/node";
 
-export const invokeSpecs = async (config, branch) => {
+export const invokeSpecs = async (
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  },
+  branch: string
+) => {
   try {
     const input = {
       branch: branch
@@ -16,6 +25,7 @@ export const invokeSpecs = async (config, branch) => {
   } catch (err) {
     Sentry.captureException(err);
     console.error("an error occured while executing the request:", err);
-    return { status: false };
+    let result: any = {};
+    return { status: false, result: result };
   }
 };

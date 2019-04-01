@@ -1,7 +1,12 @@
+// @flow
 import got from "got";
 import * as Sentry from "@sentry/node";
 
-export const invokeLogin = async (gateway, username, password) => {
+export const invokeLogin = async (
+  gateway: string,
+  username: string,
+  password: string
+) => {
   try {
     const input = {
       username: username,
@@ -12,13 +17,14 @@ export const invokeLogin = async (gateway, username, password) => {
       json: true,
       encoding: "utf8",
       body: input,
-      timeout: 10000
+      timeout: 200
     };
     const funcResponse = await got(`${gateway}/login`, options);
     return { status: true, result: funcResponse.body };
   } catch (err) {
     Sentry.captureException(err);
     console.error("an error occured while executing the request:", err.name);
-    return { status: false };
+    let result: any = {};
+    return { status: false, result: result };
   }
 };

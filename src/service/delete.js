@@ -1,8 +1,17 @@
+// @flow
 import got from "got";
 import { invokeOptions } from "../global";
 import * as Sentry from "@sentry/node";
 
-export const invokeDelete = async (config, name) => {
+export const invokeDelete = async (
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  },
+  name: string
+) => {
   try {
     const input = {
       name: name

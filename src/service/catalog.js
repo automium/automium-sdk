@@ -1,3 +1,4 @@
+// @flow
 import { haproxy, etcd, kubernetes, heketi } from "./template";
 
 //TODO: get catalog from the API

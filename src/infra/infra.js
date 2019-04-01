@@ -1,3 +1,4 @@
+// @flow
 import { environments } from "../global";
 import { invokeStatus } from "./status";
 import { invokeSpecs } from "./specs";
@@ -6,7 +7,14 @@ import { invokeServices } from "../service/services";
 import { invokeCatalog } from "../service/catalog";
 
 export class Infra {
-  constructor(gwURL, token, timeout, infraid) {
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  };
+  catalog: any;
+  constructor(gwURL: string, token: string, timeout: number, infraid: string) {
     this.config = {
       gateway: gwURL,
       infraID: infraid,
@@ -40,13 +48,8 @@ export class Infra {
     }
   };
 
-  specs = async env => {
-    var branch;
-    if (env == undefined) {
-      branch = environments.DRAFT;
-      console.info("getting specs from branch", branch);
-    }
-
+  specs = async (env: string) => {
+    let branch: string = env || environments.DRAFT;
     let { status, result } = await invokeSpecs(this.config, branch);
     if (status) {
       return result;
@@ -55,7 +58,7 @@ export class Infra {
     }
   };
 
-  addService = id => {
+  addService = (id: string) => {
     let service = this.catalog.filter(svc => svc.metadata.labels.app == id);
     if (service.length == 1) {
       return new Service(this.config, service[0]);
@@ -64,7 +67,7 @@ export class Infra {
     }
   };
 
-  getService = async (id, env) => {
+  getService = async (id: string, env: string) => {
     let specs = await this.specs(env);
     let service = specs.filter(svc => svc.metadata.name == id);
     if (service.length == 1) {

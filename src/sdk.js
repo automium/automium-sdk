@@ -1,14 +1,18 @@
+// @flow
 import { Infra } from "./infra/infra";
 import { invokeLogin } from "./auth/login";
 
 export class Client {
-  constructor(options) {
+  gatewayURL: string;
+  token: string;
+  timeout: number;
+  constructor(options: any) {
     this.gatewayURL = options.baseUrl;
     this.token = options.auth;
     this.timeout = options.timeout || 10000;
   }
 
-  login = async (username, password) => {
+  login = async (username: string, password: string) => {
     const { status, result } = await invokeLogin(
       this.gatewayURL,
       username,
@@ -21,7 +25,7 @@ export class Client {
     return status;
   };
 
-  infra(infraid) {
+  infra(infraid: string) {
     //TODO: add more validations
     if (infraid == undefined) {
       throw Error("invalid infraID");

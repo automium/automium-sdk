@@ -1,8 +1,17 @@
+// @flow
 import got from "got";
 import { invokeOptions } from "../global";
 import * as Sentry from "@sentry/node";
 
-export const invokeSave = async (config, svc) => {
+export const invokeSave = async (
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  },
+  svc: any
+) => {
   try {
     const input = {
       name: svc.metadata.name,

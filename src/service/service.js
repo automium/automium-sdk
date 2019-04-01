@@ -1,9 +1,30 @@
+// @flow
 import { invokeSave } from "./save";
 import { invokeDelete } from "./delete";
 import { invokeDeploy } from "./deploy";
 
 export class Service {
-  constructor(config, data) {
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  };
+  data: any;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  dirty: boolean;
+  constructor(
+    config: {
+      gateway: string,
+      infraID: string,
+      token: string,
+      timeout: number
+    },
+    data: any
+  ) {
     this.config = config;
     this.data = data;
     this.status = "new"; //or draft??
@@ -16,7 +37,7 @@ export class Service {
     return this.data.spec;
   };
 
-  setEnv = (name, value) => {
+  setEnv = (name: string, value: string) => {
     this.data.spec.env.forEach(env => {
       if (env.name == name) {
         env.value = value;
@@ -25,17 +46,17 @@ export class Service {
     this.dirty = true;
   };
 
-  setFlavor = name => {
+  setFlavor = (name: string) => {
     this.data.spec.flavor = name;
     this.dirty = true;
   };
 
-  setVersion = version => {
+  setVersion = (version: string) => {
     this.data.spec.version = version;
     this.dirty = true;
   };
 
-  setReplicas = num => {
+  setReplicas = (num: number) => {
     this.data.spec.replicas = num;
     this.dirty = true;
   };

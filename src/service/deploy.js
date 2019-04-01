@@ -1,8 +1,17 @@
+// @flow
 import got from "got";
 import { invokeOptions } from "../global";
 import * as Sentry from "@sentry/node";
 
-export const invokeDeploy = async (config, svc) => {
+export const invokeDeploy = async (
+  config: {
+    gateway: string,
+    infraID: string,
+    token: string,
+    timeout: number
+  },
+  svc: any
+) => {
   try {
     //fix service name
     svc.metadata.name = svc.metadata.name.toLowerCase();

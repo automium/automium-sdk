@@ -1,3 +1,4 @@
+// @flow
 import "@babel/polyfill";
 import * as Sentry from "@sentry/node";
 import { version } from "../package.json";
