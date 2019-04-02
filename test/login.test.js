@@ -13,13 +13,13 @@ it("login succeded with the valid input", async () => {
   got.mockReturnValue(Promise.resolve({ body: "TOKEN" }));
 
   const result = await invokeLogin(
-    "http://AUTOMIUM_URL",
+    "https://AUTOMIUM_ENDPOINT",
     "username",
     "password"
   );
 
   expect(got).toHaveBeenCalledTimes(1);
-  expect(got).toHaveBeenCalledWith("http://AUTOMIUM_URL/login", {
+  expect(got).toHaveBeenCalledWith("https://AUTOMIUM_ENDPOINT/login", {
     body: { password: "password", username: "username" },
     encoding: "utf8",
     json: true,
@@ -31,16 +31,16 @@ it("login succeded with the valid input", async () => {
 });
 
 it("login fails with the wrong credential", async () => {
-  got.mockReturnValue(Promise.reject("Invalid credentials"));
+  got.mockReturnValue(Promise.reject({ name: "Invalid credentials" }));
 
   const result = await invokeLogin(
-    "http://AUTOMIUM_URL",
+    "https://AUTOMIUM_ENDPOINT",
     "username",
     "password"
   );
 
   expect(got).toHaveBeenCalledTimes(1);
-  expect(got).toHaveBeenCalledWith("http://AUTOMIUM_URL/login", {
+  expect(got).toHaveBeenCalledWith("https://AUTOMIUM_ENDPOINT/login", {
     body: { password: "password", username: "username" },
     encoding: "utf8",
     json: true,
