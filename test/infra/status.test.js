@@ -2,7 +2,7 @@ jest.mock("got"); // got is now a mock function
 
 import "@babel/polyfill";
 import got from "got";
-import { invokeStatus } from "../../src/infra/status";
+import { Infra } from "../../src/infra/infra";
 import { status } from "./data";
 
 beforeEach(() => {
@@ -13,13 +13,8 @@ beforeEach(() => {
 it("should get infra status", async () => {
   got.mockReturnValue(Promise.resolve({ body: status }));
 
-  const config = {
-    gateway: "https://AUTOMIUM_ENDPOINT",
-    infraID: "default",
-    timeout: 200,
-    token: "TOKEN"
-  };
-  const result = await invokeStatus(config);
+  const infra = new Infra("https://AUTOMIUM_ENDPOINT", "TOKEN", 200, "default");
+  const result = await infra.status();
 
   expect(got).toHaveBeenCalledTimes(1);
   expect(got).toHaveBeenCalledWith(
@@ -35,6 +30,5 @@ it("should get infra status", async () => {
       }
     }
   );
-  expect(result.status).toBe(true);
-  expect(result.result).toBe(status);
+  expect(result).toBe(status);
 });
