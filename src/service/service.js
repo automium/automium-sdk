@@ -27,9 +27,13 @@ export class Service {
   ) {
     this.config = config;
     this.data = data;
+    //TODO: how to check if the service is already live (replicas > 0)?
     this.status = "new"; //or draft??
-    this.createdAt = new Date().toISOString();
-    this.updatedAt = new Date().toISOString();
+    this.createdAt =
+      data.metadata.creationTimestamp || new Date().toISOString();
+    //TODO: how to get the update date?
+    this.updatedAt =
+      data.metadata.creationTimestamp || new Date().toISOString();
     this.dirty = false; //draft is a status??
   }
 
