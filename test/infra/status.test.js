@@ -2,16 +2,16 @@ jest.mock("got"); // got is now a mock function
 
 import "@babel/polyfill";
 import got from "got";
-import { invokeSpecs } from "../../src/infra/specs";
-import { specs } from "./data";
+import { invokeStatus } from "../../src/infra/status";
+import { status } from "./data";
 
 beforeEach(() => {
   // Cleaning up between tests
   got.mockClear();
 });
 
-it("should get infra specs", async () => {
-  got.mockReturnValue(Promise.resolve({ body: specs }));
+it("should get infra status", async () => {
+  got.mockReturnValue(Promise.resolve({ body: status }));
 
   const config = {
     gateway: "https://AUTOMIUM_ENDPOINT",
@@ -19,13 +19,13 @@ it("should get infra specs", async () => {
     timeout: 200,
     token: "TOKEN"
   };
-  const result = await invokeSpecs(config, "master");
+  const result = await invokeStatus(config);
 
   expect(got).toHaveBeenCalledTimes(1);
   expect(got).toHaveBeenCalledWith(
-    "https://AUTOMIUM_ENDPOINT/default/infraspecs",
+    "https://AUTOMIUM_ENDPOINT/default/infrastatus",
     {
-      body: { branch: "master" },
+      body: {},
       encoding: "utf8",
       json: true,
       method: "POST",
@@ -36,5 +36,5 @@ it("should get infra specs", async () => {
     }
   );
   expect(result.status).toBe(true);
-  expect(result.result).toBe(specs);
+  expect(result.result).toBe(status);
 });
