@@ -1,5 +1,5 @@
 // @flow
-import { haproxy, etcd, kubernetes, heketi } from "./template";
+import { haproxy, etcd, kubernetes } from "./template";
 
 //TODO: get catalog from the API
 export const invokeCatalog = () => {
@@ -7,6 +7,5 @@ export const invokeCatalog = () => {
   catalog.push(haproxy);
   catalog.push(etcd);
   catalog.push(kubernetes);
-  catalog.push(heketi);
   return catalog;
 };
