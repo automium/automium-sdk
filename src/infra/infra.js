@@ -71,8 +71,16 @@ export class Infra {
     let specs = await this.specs(env);
     let service = specs.filter(svc => svc.metadata.name == id);
     if (service.length == 1) {
-      //TODO: check the real status in Services()
-      return new Service(this.config, service[0]);
+      let svc = new Service(this.config, service[0]);
+      //check the real status of the service
+      let services = await this.services();
+      let liveService = services.filter(svc => svc.data.metadata.name == id);
+      if (liveService.length == 1) {
+        console.info("service already deployed");
+        svc.status = liveService[0].status;
+        //TODO: check if it's dirty
+      }
+      return svc;
     } else {
       return null;
     }
