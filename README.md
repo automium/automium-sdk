@@ -68,3 +68,7 @@ graph TD
 ## Infra Lifecycle
 
 TBD
+
+## License
+
+MIT
