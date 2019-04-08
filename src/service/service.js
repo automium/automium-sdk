@@ -2,6 +2,7 @@
 import { invokeSave } from "./save";
 import { invokeDelete } from "./delete";
 import { invokeDeploy } from "./deploy";
+import { invokeLogs } from "./logs";
 
 export class Service {
   config: {
@@ -115,5 +116,10 @@ export class Service {
       this.status = "deleted";
     }
     return status; //what to return?
+  };
+
+  logs = async () => {
+    const { result } = await invokeLogs(this.config, this.data.metadata.name);
+    return result;
   };
 }
