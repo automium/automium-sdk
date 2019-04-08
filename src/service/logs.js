@@ -21,7 +21,7 @@ export const invokeLogs = async (
       `${config.gateway}/${config.infraID}/servicelogs`,
       options
     );
-    return { status: true, result: funcResponse.body };
+    return { status: true, result: funcResponse.body.logs };
   } catch (err) {
     Sentry.captureException(err);
     console.error("an error occured while executing the request:", err.name);
