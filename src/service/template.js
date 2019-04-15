@@ -37,81 +37,39 @@ export const haproxy = {
   }
 };
 
-export const kubernetes = {
+export const kubernetes_cluster = {
   apiVersion: "core.automium.io/v1beta1",
   kind: "Service",
   metadata: {
-    labels: { app: "kubernetes" },
-    name: "mycluster"
+    labels: { app: "kubernetes-cluster" },
+    name: "mykubernetescluster"
   },
   spec: {
-    replicas: 1,
-    flavor: "e3standard.x3",
-    version: "1.13",
-    tags: [],
-    env: [
-      {
-        name: "master_flavor",
-        value: "e3standard.x4"
-      },
-      {
-        name: "master_count",
-        value: "1"
-      }
-    ],
-    extra: []
-  }
-};
-
-export const etcd = {
-  apiVersion: "core.automium.io/v1beta1",
-  kind: "Service",
-  metadata: {
-    labels: { app: "etcd" },
-    name: "myetcddatabase"
-  },
-  spec: {
-    replicas: 1,
-    flavor: "e3standard.x3",
-    version: "3.23",
+    replicas: 3,
+    flavor: "e3standard.x4",
+    version: "1.13.5",
     tags: [],
     env: [],
     extra: []
   }
 };
 
-export const heketi = {
+export const kubernetes_nodepool = {
   apiVersion: "core.automium.io/v1beta1",
   kind: "Service",
   metadata: {
-    labels: { app: "kubernetes-heketi" },
-    name: "myheketicluster"
+    labels: { app: "kubernetes-nodepool" },
+    name: "mykubernetesnodes"
   },
   spec: {
-    replicas: 3,
+    replicas: 1,
     flavor: "e3standard.x3",
-    version: "8.0",
+    version: "1.13.5",
     tags: [],
     env: [
       {
-        name: "kubernetes_master_name",
-        value: "kubernetes-master"
-      },
-      {
-        name: "master-ip",
-        value: "kubernetes-master.service.automium.consul"
-      },
-      {
-        name: "heketi_admin_password",
-        value: "password"
-      },
-      {
-        name: "heketi_volume_size",
-        value: "10"
-      },
-      {
-        name: "heketi_volume_type",
-        value: "Top"
+        name: "cluster_name",
+        value: "mykubernetescluster"
       }
     ],
     extra: []
