@@ -1,4 +1,3 @@
-// @flow
 import { environments } from "../global";
 import { invokeStatus } from "./status";
 import { invokeSpecs } from "./specs";
@@ -8,10 +7,10 @@ import { invokeCatalog } from "../service/catalog";
 
 export class Infra {
   config: {
-    gateway: string,
-    infraID: string,
-    token: string,
-    timeout: number
+    gateway: string;
+    infraID: string;
+    token: string;
+    timeout: number;
   };
   catalog: any;
   constructor(gwURL: string, token: string, timeout: number, infraid: string) {
@@ -25,10 +24,10 @@ export class Infra {
   }
 
   services = async () => {
-    let services = [];
+    let services: any = [];
     const { status, result } = await invokeServices(this.config);
     if (status) {
-      result.items.forEach(item => {
+      result.items.forEach((item: any) => {
         let svc = new Service(this.config, item);
         if (item.spec.replicas > 0) {
           svc.status = "live";
@@ -59,7 +58,9 @@ export class Infra {
   };
 
   addService = (id: string) => {
-    let service = this.catalog.filter(svc => svc.metadata.labels.app == id);
+    let service = this.catalog.filter(
+      (svc: any) => svc.metadata.labels.app == id
+    );
     if (service.length == 1) {
       return new Service(this.config, service[0]);
     } else {
@@ -69,12 +70,14 @@ export class Infra {
 
   getService = async (id: string, env: string) => {
     let specs = await this.specs(env);
-    let service = specs.filter(svc => svc.metadata.name == id);
+    let service = specs.filter((svc: any) => svc.metadata.name == id);
     if (service.length == 1) {
       let svc = new Service(this.config, service[0]);
       //check the real status of the service
       let services = await this.services();
-      let liveService = services.filter(svc => svc.data.metadata.name == id);
+      let liveService = services.filter(
+        (svc: any) => svc.data.metadata.name == id
+      );
       if (liveService.length == 1) {
         console.info("service already deployed");
         svc.status = liveService[0].status;

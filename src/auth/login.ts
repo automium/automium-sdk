@@ -1,5 +1,4 @@
-// @flow
-import got from "got";
+import got, { GotJSONOptions } from "got";
 import * as Sentry from "@sentry/node";
 
 export const invokeLogin = async (
@@ -12,7 +11,7 @@ export const invokeLogin = async (
       username: username,
       password: password
     };
-    const options = {
+    const options: GotJSONOptions = {
       method: "POST",
       json: true,
       encoding: "utf8",

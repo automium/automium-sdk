@@ -1,4 +1,3 @@
-// @flow
 export const haproxy = {
   apiVersion: "core.automium.io/v1beta1",
   kind: "Service",
@@ -70,6 +69,18 @@ export const kubernetes_nodepool = {
       {
         name: "cluster_name",
         value: "mykubernetescluster"
+      },
+      {
+        name: "nodes_min",
+        value: "1"
+      },
+      {
+        name: "nodes_max",
+        value: "5"
+      },
+      {
+        name: "autoscaling",
+        value: "true"
       }
     ],
     extra: []

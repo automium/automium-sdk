@@ -1,12 +1,17 @@
-// @flow
 import { Infra } from "./infra/infra";
 import { invokeLogin } from "./auth/login";
+
+export type ClientOptions = {
+  baseUrl: string;
+  auth: string;
+  timeout?: number;
+};
 
 export class Client {
   gatewayURL: string;
   token: string;
   timeout: number;
-  constructor(options: any) {
+  constructor(options: ClientOptions) {
     this.gatewayURL = options.baseUrl;
     this.token = options.auth;
     this.timeout = options.timeout || 10000;

@@ -1,4 +1,3 @@
-// @flow
 import { invokeSave } from "./save";
 import { invokeDelete } from "./delete";
 import { invokeDeploy } from "./deploy";
@@ -6,10 +5,10 @@ import { invokeLogs } from "./logs";
 
 export class Service {
   config: {
-    gateway: string,
-    infraID: string,
-    token: string,
-    timeout: number
+    gateway: string;
+    infraID: string;
+    token: string;
+    timeout: number;
   };
   data: any;
   status: string;
@@ -19,10 +18,10 @@ export class Service {
   dirty: boolean;
   constructor(
     config: {
-      gateway: string,
-      infraID: string,
-      token: string,
-      timeout: number
+      gateway: string;
+      infraID: string;
+      token: string;
+      timeout: number;
     },
     data: any
   ) {
@@ -35,6 +34,7 @@ export class Service {
     //TODO: how to get the update date?
     this.updatedAt =
       data.metadata.creationTimestamp || new Date().toISOString();
+    this.deletedAt = "";
     this.dirty = false; //draft is a status??
   }
 
@@ -43,7 +43,7 @@ export class Service {
   };
 
   setEnv = (name: string, value: string) => {
-    this.data.spec.env.forEach(env => {
+    this.data.spec.env.forEach((env: any) => {
       if (env.name == name) {
         env.value = value;
       }

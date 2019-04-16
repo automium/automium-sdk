@@ -1,4 +1,3 @@
-// @flow
 import { haproxy, kubernetes_cluster, kubernetes_nodepool } from "./template";
 
 //TODO: get catalog from the API

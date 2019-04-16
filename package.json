@@ -12,6 +12,7 @@
   "files": [
     "dist"
   ],
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@sentry/node": "^4.6.3",
     "body-parser": "^1.18.3",
@@ -22,32 +23,36 @@
     "@babel/core": "^7.2.0",
     "@babel/node": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
     "@babel/polyfill": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-typescript": "7.3.3",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.14.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "flow-bin": "^0.95.1",
     "jest": "^24.1.0",
     "jest-cli": "^24.1.0",
-    "nodemon": "^1.18.10",
+    "rimraf": "^2.6.3",
     "prettier": "^1.16.4",
-    "semantic-release": "^15.13.3"
+    "semantic-release": "^15.13.3",
+    "typescript": "^3.4.3",
+    "@types/got": "^9.4.1"
   },
   "scripts": {
     "validate": "yarn prettier:check && yarn lint:eslint && yarn typecheck",
     "prettier:check": "yarn prettier --debug-check $npm_package_config_prettier_target",
     "prettier:write": "yarn prettier --write $npm_package_config_prettier_target",
     "lint:eslint": "yarn eslint $npm_package_config_prettier_target",
-    "typecheck": "flow check",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
-    "clean": "rimraf dist/*",
-    "build": "yarn clean && babel src --out-dir dist --ignore tests",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "build": "yarn build:clean && yarn run build:types && yarn run build:js",
+    "build:clean": "rimraf dist/*",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
   },
   "config": {
-    "prettier_target": "src/**/*.{js,md,json}"
+    "prettier_target": "src/**/*.{js,ts,md,json}"
   },
   "jest": {
     "testEnvironment": "node",

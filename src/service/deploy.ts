@@ -1,26 +1,32 @@
-// @flow
 import got from "got";
 import { invokeOptions } from "../global";
 import * as Sentry from "@sentry/node";
 
-export const invokeServices = async (config: {
-  gateway: string,
-  infraID: string,
-  token: string,
-  timeout: number
-}) => {
+export const invokeDeploy = async (
+  config: {
+    gateway: string;
+    infraID: string;
+    token: string;
+    timeout: number;
+  },
+  svc: any
+) => {
   try {
-    const input = {};
+    //fix service name
+    svc.metadata.name = svc.metadata.name.toLowerCase();
+
+    const input = {
+      service: svc
+    };
     const options = invokeOptions(input, config.token, config.timeout);
     const funcResponse = await got(
-      `${config.gateway}/${config.infraID}/infraservices`,
+      `${config.gateway}/${config.infraID}/applyservice`,
       options
     );
     return { status: true, result: funcResponse.body };
   } catch (err) {
     Sentry.captureException(err);
     console.error("an error occured while executing the request:", err);
-    let result: any = {};
-    return { status: false, result: result };
+    return { status: false };
   }
 };

@@ -1,4 +1,3 @@
-// @flow
 export const environments = {
   DRAFT: "master",
   LIVE: "prod"
