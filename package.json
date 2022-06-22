@@ -16,7 +16,7 @@
   "dependencies": {
     "@sentry/node": "^4.6.3",
     "body-parser": "^1.18.3",
-    "got": "^9.3.2"
+    "got": "^11.8.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
